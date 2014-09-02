@@ -8,16 +8,14 @@ in config/config.php, place a line like this near the top:
 
 and then add a paragraph like this in the middle:
 
-'''php
-"user_backends" => array (
-    0 => array (
-      "class"     => "OC_User_Keystone",
-      "arguments" => array (
-        0 => 'http[s]://KEYSTONE_HOST/v2.0/'
+    "user_backends" => array (
+        0 => array (
+          "class"     => "OC_User_Keystone",
+          "arguments" => array (
+            0 => 'http[s]://KEYSTONE_HOST/v2.0/'
+          ),
+        ),
       ),
-    ),
-  ),
-'''
 
 And, then, every user who can authenticate (in anyway shape or form) against
 Keystone can use ownCloud.
