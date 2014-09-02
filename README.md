@@ -7,6 +7,8 @@ in config/config.php, place a line like this near the top:
     require_once('/usr/share/owncloud/apps/user_keystone/lib/keystone.php');
 
 and then add a paragraph like this in the middle:
+
+    '''php
     "user_backends" => array (
         0 => array (
           "class"     => "OC_User_Keystone",
@@ -15,8 +17,9 @@ and then add a paragraph like this in the middle:
           ),
         ),
       ),
+      '''
 
 And, then, every user who can authenticate (in anyway shape or form) against
 Keystone can use ownCloud.
 
-
+Watch out that a reconfigure can wipe the require_once() line.
