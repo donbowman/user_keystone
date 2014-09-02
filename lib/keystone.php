@@ -37,10 +37,25 @@ class OC_User_Keystone extends OC_User_Backend{
                 } catch (Exception $e) {
                     return false;
                 }
-                return true;
+		try {
+			OC_User::createUser($uid, $password);
+		} catch (Exception $e) {
+		}
+
+		try {
+			OC_Group::createGroup($uid);
+			OC_Group::addToGroup( $uid, $uid );
+		} catch (Exception $e) {
+		}
+
+                return $uid;
 	}
 
 	public function userExists($uid) {
 		return true;
+	}
+	public function getHome($uid) {
+		$path = \OC::$SERVERROOT . '/data/' . $uid;
+		return $path;
 	}
 }
