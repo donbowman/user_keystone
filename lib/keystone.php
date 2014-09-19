@@ -10,11 +10,12 @@ require_once 'php-opencloud/php-opencloud.php';
 
 use OpenCloud\OpenStack;
 
-class OC_User_Keystone extends OC_User_Backend{
+class OC_User_Keystone extends \OCA\user_external\Base{
         private $url;
 
 	public function __construct($url) {
             $this->url = $url;
+            parent::__construct("keystone: " . $url);
 	}
 
 	/**
@@ -27,6 +28,10 @@ class OC_User_Keystone extends OC_User_Backend{
 	 */
 	public function checkPassword($uid, $password) {
 
+		OCP\Util::writeLog(
+			'user_external',
+			'Keysone: ' . $uid, OCP\Util::ERROR
+		);
 		try {
                     $client = new OpenStack($this->url, array(
                         'username' => $uid,
@@ -35,12 +40,18 @@ class OC_User_Keystone extends OC_User_Backend{
                     ));
                     $client->authenticate();
                 } catch (Exception $e) {
+			OCP\Util::writeLog(
+				'user_external',
+				'Keysone exception: ' . $uid, OCP\Util::ERROR
+			);
                     return false;
                 }
-                return true;
+                $this->storeUser($uid);
+		OCP\Util::writeLog(
+			'user_external',
+			'Keysone OK: ' . $uid, OCP\Util::ERROR
+		);
+                return $uid;
 	}
 
-	public function userExists($uid) {
-		return true;
-	}
 }
