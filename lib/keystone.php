@@ -6,7 +6,7 @@
  * or later.
  */
 
-require_once 'php-opencloud/php-opencloud.php';
+require_once 'rackspace/vendor/autoload.php';
 
 use OpenCloud\OpenStack;
 

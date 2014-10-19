@@ -18,4 +18,9 @@ in config/config.php add a paragraph like this in the middle:
 And, then, every user who can authenticate (in anyway shape or form) against
 Keystone can use ownCloud.
 
+it also needs php-opencloud (https://github.com/rackspace/php-opencloud)
+
+    cd /var/www/owncloud/3rdparty/rackspace
+    curl -sS https://getcomposer.org/installer | php
+    php composer.phar require rackspace/php-opencloud:dev-master
 
