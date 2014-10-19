@@ -1,11 +1,13 @@
 This library allows one to authenticate against keystone (from OpenStack).
 
-To install, place the file in /usr/share/owncloud/apps/user_exernal/lib
-and then add this line to owncloud/apps/user_external/appinfo/app.php
+To install, place the files in /usr/share/owncloud/apps/user_keystone
 
-    OC::$CLASSPATH['OC_User_Keystone']='user_external/lib/keystone.php';
+in config/config.php, place a line like this near the top:
 
-in config/config.php add a paragraph like this in the middle:
+    require_once('/usr/share/owncloud/apps/user_keystone/lib/keystone.php');
+
+and then add a paragraph like this in the middle:
+
     "user_backends" => array (
         0 => array (
           "class"     => "OC_User_Keystone",
@@ -17,6 +19,8 @@ in config/config.php add a paragraph like this in the middle:
 
 And, then, every user who can authenticate (in anyway shape or form) against
 Keystone can use ownCloud.
+
+Watch out that a reconfigure can wipe the require_once() line.
 
 it also needs php-opencloud (https://github.com/rackspace/php-opencloud)
 
